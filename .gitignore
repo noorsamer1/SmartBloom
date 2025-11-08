@@ -1,0 +1,27 @@
+@'
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+
+
+# Training outputs & datasets
+outputs/
+
+
+
+# Large binaries
+*.pt
+*.pth
+*.onnx
+*.zip
+*.tgz
+*.tar
+*.tar.gz
+*.mat
+
+# OS
+.DS_Store
+'@ | Out-File -Encoding utf8 .gitignore
