@@ -1,9 +1,10 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Webcam from "react-webcam";
-import { predictFlower, predictDisease } from "../api";
 import { motion } from "framer-motion";
+import { predictFlower, predictDisease } from "../api";
 
-// Simple loading skeleton
+/* ----------------------------- UI helpers ----------------------------- */
+
 function Skeleton() {
   return (
     <div className="animate-pulse space-y-3">
@@ -14,7 +15,7 @@ function Skeleton() {
   );
 }
 
-// Absolute overlay for bounding boxes (normalized 0..1)
+// Draw normalized (0..1) bounding boxes over an image container
 function BoundingBoxes({ boxes = [], containerRef }) {
   const [size, setSize] = useState({ w: 0, h: 0 });
 
@@ -31,21 +32,21 @@ function BoundingBoxes({ boxes = [], containerRef }) {
   return (
     <div className="pointer-events-none absolute inset-0">
       {boxes.map((d, i) => {
-        const { x1, y1, x2, y2 } = d.box || {};
-        const left = (x1 || 0) * size.w;
-        const top = (y1 || 0) * size.h;
-        const width = ((x2 || 0) - (x1 || 0)) * size.w;
-        const height = ((y2 || 0) - (y1 || 0)) * size.h;
+        const { x1 = 0, y1 = 0, x2 = 0, y2 = 0 } = d.box || {};
+        const left = x1 * size.w;
+        const top = y1 * size.h;
+        const width = (x2 - x1) * size.w;
+        const height = (y2 - y1) * size.h;
         return (
           <motion.div
             key={i}
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ type: "spring", stiffness: 120, damping: 14 }}
-            className="absolute border-2 border-green-500/80 rounded-md"
+            transition={{ type: "spring", stiffness: 140, damping: 16 }}
+            className="absolute border-[3px] border-emerald-500/90 rounded-md"
             style={{ left, top, width, height }}
           >
-            <div className="absolute -top-6 left-0 bg-green-600 text-white text-xs px-2 py-0.5 rounded">
+            <div className="absolute -top-6 left-0 bg-emerald-600 text-white text-xs px-2 py-0.5 rounded shadow-[0_0_0_2px_#ffffff]">
               {d.label} · {Math.round((d.confidence || 0) * 100)}%
             </div>
           </motion.div>
@@ -55,15 +56,17 @@ function BoundingBoxes({ boxes = [], containerRef }) {
   );
 }
 
+/* ----------------------------- Main component ----------------------------- */
+
 export default function LiveDemo() {
-  // Tabs
-  const [tab, setTab] = useState("flower"); // "flower" | "disease"
+  // Tabs: "flower" | "disease"
+  const [tab, setTab] = useState("disease");
 
-  // Input sources
+  // Source: camera vs upload
+  const [useCam, setUseCam] = useState(false);
   const webcamRef = useRef(null);
-  const [useCam, setUseCam] = useState(true);
 
-  // Preview + results
+  // Preview & results
   const [imgPreview, setImgPreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -71,23 +74,31 @@ export default function LiveDemo() {
   const [flowerRes, setFlowerRes] = useState(null);
   const [diseaseRes, setDiseaseRes] = useState(null);
 
-  // For overlay sizing
+  // Disease extras
+  const [confThresh, setConfThresh] = useState(0.25); // 0..1
+  const filteredDetections = useMemo(() => {
+    const arr = diseaseRes?.detections || [];
+    return arr.filter((d) => (d.confidence || 0) >= confThresh);
+  }, [diseaseRes, confThresh]);
+
+  // Bounding box sizing
   const imageBoxRef = useRef(null);
 
-  // Dynamic hint per tab
   const hint =
     tab === "flower"
-      ? "Tip: Aim at the bloom (petals/center) for best flower classification."
-      : "Tip: Fill the frame with leaves to help detect infected regions.";
+      ? "Tip: Aim at the bloom (petals and center) for best species classification."
+      : "Tip: Fill the frame with leaves so the model can localize infected regions.";
 
   const videoConstraints = { facingMode: "environment", width: 640, height: 480 };
 
-  // Reset results when switching tabs
+  // Reset result state when changing tab
   useEffect(() => {
     setFlowerRes(null);
     setDiseaseRes(null);
     setError("");
   }, [tab]);
+
+  /* ------------------------------- Actions ------------------------------- */
 
   async function runFlower(fileOrBlob) {
     setLoading(true);
@@ -143,6 +154,8 @@ export default function LiveDemo() {
     tab === "flower" ? runFlower(file) : runDisease(file);
   }
 
+  /* --------------------------------- View -------------------------------- */
+
   return (
     <div className="space-y-6">
       {/* Tabs */}
@@ -152,6 +165,7 @@ export default function LiveDemo() {
             tab === "flower" ? "bg-white shadow" : "text-gray-600"
           }`}
           onClick={() => setTab("flower")}
+          aria-pressed={tab === "flower"}
         >
           🌸 Flower species
         </button>
@@ -160,6 +174,7 @@ export default function LiveDemo() {
             tab === "disease" ? "bg-white shadow" : "text-gray-600"
           }`}
           onClick={() => setTab("disease")}
+          aria-pressed={tab === "disease"}
         >
           🍃 Leaf disease
         </button>
@@ -168,9 +183,9 @@ export default function LiveDemo() {
       <p className="text-xs text-gray-500">{hint}</p>
 
       <div className="grid md:grid-cols-2 gap-8">
-        {/* Input */}
+        {/* Input card */}
         <motion.div
-          className="bg-white rounded-2xl shadow p-4"
+          className="card p-4"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -197,6 +212,24 @@ export default function LiveDemo() {
             </div>
           </div>
 
+          {/* Disease-only controls */}
+          {tab === "disease" && (
+            <div className="mb-3">
+              <label className="text-xs text-gray-500">
+                Confidence threshold:{" "}
+                <b>{Math.round(confThresh * 100)}%</b>
+              </label>
+              <input
+                type="range"
+                min={0}
+                max={100}
+                value={Math.round(confThresh * 100)}
+                onChange={(e) => setConfThresh(Number(e.target.value) / 100)}
+                className="w-full"
+              />
+            </div>
+          )}
+
           {useCam ? (
             <div className="space-y-3">
               <Webcam
@@ -221,9 +254,9 @@ export default function LiveDemo() {
           )}
         </motion.div>
 
-        {/* Results */}
+        {/* Results card */}
         <motion.div
-          className="bg-white rounded-2xl shadow p-4"
+          className="card p-4"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -231,14 +264,16 @@ export default function LiveDemo() {
           <h3 className="font-semibold mb-3">Results</h3>
 
           <div className="grid md:grid-cols-2 gap-4">
-            {/* Image + boxes */}
+            {/* Preview + boxes */}
             <div ref={imageBoxRef} className="relative rounded-xl overflow-hidden border">
               {imgPreview ? (
                 <>
                   <img src={imgPreview} alt="preview" className="w-full h-full object-cover" />
-                  {/* Boxes only for disease tab */}
-                  {tab === "disease" && diseaseRes?.detections?.length > 0 && (
-                    <BoundingBoxes boxes={diseaseRes.detections} containerRef={imageBoxRef} />
+                  {tab === "disease" && filteredDetections.length > 0 && (
+                    <BoundingBoxes
+                      boxes={filteredDetections}
+                      containerRef={imageBoxRef}
+                    />
                   )}
                 </>
               ) : (
@@ -256,7 +291,9 @@ export default function LiveDemo() {
               {!loading && !error && tab === "flower" && (
                 <>
                   {!flowerRes ? (
-                    <p className="text-gray-500">Choose/submit a bloom image to classify.</p>
+                    <p className="text-gray-500">
+                      Choose or capture a bloom image to classify the species.
+                    </p>
                   ) : (
                     <motion.div
                       initial={{ opacity: 0, y: 6 }}
@@ -278,14 +315,16 @@ export default function LiveDemo() {
               {!loading && !error && tab === "disease" && (
                 <>
                   {!diseaseRes ? (
-                    <p className="text-gray-500">Choose/submit a leaf image to detect diseases.</p>
-                  ) : diseaseRes.detections?.length ? (
+                    <p className="text-gray-500">
+                      Choose or capture a leaf image to detect diseases.
+                    </p>
+                  ) : filteredDetections.length ? (
                     <motion.ul
                       initial={{ opacity: 0, y: 6 }}
                       animate={{ opacity: 1, y: 0 }}
                       className="mt-1 space-y-1 text-sm"
                     >
-                      {diseaseRes.detections.map((d, i) => (
+                      {filteredDetections.map((d, i) => (
                         <li
                           key={i}
                           className="flex items-center justify-between bg-gray-50 rounded px-2 py-1"
@@ -298,7 +337,7 @@ export default function LiveDemo() {
                       ))}
                     </motion.ul>
                   ) : (
-                    <div className="text-gray-600">No diseases detected</div>
+                    <div className="text-gray-600">No diseases above threshold</div>
                   )}
                 </>
               )}

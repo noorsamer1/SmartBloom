@@ -5,4 +5,5 @@
 :root { color-scheme: light; }
 body { @apply bg-slate-100 text-gray-800; }
 
-/* tiny util
+/* tiny utility for consistent cards */
+.card { @apply bg-white rounded-2xl shadow-sm ring-1 ring-gray-200; }
