@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SmartBloom 🌸</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>SmartBloom 🌸</h1>
+      <p>Flower Identification & Leaf Disease Detection</p>
+    </header>
+
+    <section class="intro">
+      <h2>About SmartBloom</h2>
+      <p>
+        SmartBloom uses two AI models to analyze plant images:
+      </p>
+      <ul>
+        <li><strong>Flower Classifier</strong> (EfficientNet-B0) to identify flower species.</li>
+        <li><strong>Disease Detector</strong> (YOLOv8/9/10/12) to locate and name leaf diseases.</li>
+      </ul>
+      <p>Upload a photo or use your camera to see what SmartBloom detects.</p>
+    </section>
+
+    <section class="controls">
+      <div class="card">
+        <h3>📁 Upload Image</h3>
+        <input type="file" id="fileInput" accept="image/*" />
+        <button id="uploadBtn">Analyze Image</button>
+      </div>
+
+      <div class="card">
+        <h3>📷 Live Camera</h3>
+        <video id="video" autoplay playsinline></video>
+        <button id="captureBtn">Capture & Analyze</button>
+        <canvas id="canvas" style="display:none;"></canvas>
+      </div>
+    </section>
+
+    <section class="results">
+      <h2>Results</h2>
+      <div id="previewContainer">
+        <img id="previewImage" alt="Preview" />
+      </div>
+      <div id="output">
+        <!-- JSON-style results will appear here -->
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

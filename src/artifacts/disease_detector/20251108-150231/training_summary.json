@@ -1,0 +1,8 @@
+{
+  "model": "yolov8s.pt",
+  "epochs": 100,
+  "image_size": 640,
+  "batch_size": 16,
+  "learning_rate": 0.01,
+  "best_weights": "F:\\SmartBloomProject\\src\\artifacts\\disease_detector\\20251108-150231_yolov8s\\weights\\best.pt"
+}

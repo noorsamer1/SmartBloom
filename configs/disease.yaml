@@ -1,0 +1,9 @@
+﻿data: data/plant_disease_detection/data.yaml
+model: yolov8s.pt        # 👈 change here (yolov8s.pt / yolov9-c.pt / yolov10n.pt / yolov12n.pt)
+epochs: 100
+imgsz: 640
+batch: 16
+device: 0
+workers: 4
+lr: 0.01
+save_dir: artifacts/disease_detector

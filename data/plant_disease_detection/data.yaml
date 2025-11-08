@@ -1,0 +1,17 @@
+train: F:/SmartBloomProject/data/plant_disease_detection/images/train
+val: F:/SmartBloomProject/data/plant_disease_detection/images/val
+test: F:/SmartBloomProject/data/plant_disease_detection/images/test
+
+nc: 9  # number of classes
+names:
+  [
+    "apple leaf",
+    "corn leaf blight",
+    "corn rust leaf",
+    "potato leaf early blight",
+    "potato leaf lateblight",
+    "rust leaf",
+    "scab leaf",
+    "squash powdery mildew leaf",
+    "tomato leaf late blight"
+  ]
