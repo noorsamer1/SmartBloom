@@ -6,6 +6,12 @@ SmartBloom is an intelligent computer vision system that helps users identify pl
 
 ![SmartBloom landing page](assets/smartbloom-landing.png)
 
+### Assistant in action
+
+After the YOLO model detects a plant disease, the assistant plays a short animation, then **streams the plant disease diagnosis and step-by-step recommendations** to fix it.
+
+*To add the demo video: on GitHub, click **Edit this file** on this README, then drag and drop your `Recording 2026-02-03 184759.mp4` into the editor. GitHub will upload it and insert a playable video link here.*
+
 ## Features
 
 - **Flower classification** — EfficientNet-B0 classifier over 102 Oxford Flowers classes.
