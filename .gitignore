@@ -27,6 +27,9 @@ __pycache__/
 .coverage
 htmlcov/
 .data/
+Multi-Crop Disease Dataset.zip
+web_backend.zip
+
 # Node (frontend)
 node_modules/
 
