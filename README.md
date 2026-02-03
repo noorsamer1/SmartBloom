@@ -2,7 +2,9 @@
 
 **Repository:** [github.com/noorsamer1/SmartBloom](https://github.com/noorsamer1/SmartBloom)
 
-SmartBloom is an intelligent computer vision system that helps users identify plant species and detect leaf diseases in real time. The platform combines YOLO object detection and CNN-based flower classification to support both flower recognition and disease localization, with a FastAPI backend and React frontend for live demos and uploads. that combines **flower species classification** and **plant disease detection** (object detection), with a FastAPI backend and a React frontend for live demos and uploads.
+SmartBloom is an intelligent computer vision system that helps users identify plant species and detect leaf diseases in real time. The platform combines YOLO object detection and CNN-based flower classification to support both flower recognition and disease localization, with a FastAPI backend and React frontend for live demos and uploads.
+
+![SmartBloom landing page](assets/smartbloom-landing.png)
 
 ## Features
 
