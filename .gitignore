@@ -1,0 +1,47 @@
+# -----------------------------------------------------------------------------
+# SmartBloom — ignore datasets, models, and generated content (repo stays small)
+# -----------------------------------------------------------------------------
+
+# Datasets (large; do not commit). Keep only dataset docs in repo.
+data/*
+!data/README.md
+!data/plant_disease_detection/
+data/plant_disease_detection/*
+!data/plant_disease_detection/data.yaml.example
+
+# Model weights and training outputs
+artifacts/
+outputs/
+runs/
+*.pt
+*.pth
+
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.eggs/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node (frontend)
+node_modules/
+
+# Environment and temp
+.env
+.env.local
+*.log
+temp_img.jpg
+
+# Optional local-only
+web_backend.zip
+exp10-new/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

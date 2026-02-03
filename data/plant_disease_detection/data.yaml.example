@@ -1,0 +1,9 @@
+# YOLO dataset config — copy to data.yaml and set paths to your train/val (and test) dirs.
+# Images and same-named .txt label files must exist in those directories.
+
+train: /path/to/your/plant_disease/images/train
+val:   /path/to/your/plant_disease/images/valid
+# test: /path/to/your/plant_disease/images/test
+
+nc: 50   # number of classes (adjust to your dataset)
+names: [ "class_0", "class_1", ... ]   # replace with your class names list

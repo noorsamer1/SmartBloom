@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SmartBloom Class Accuracy Report</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 25px;
+    }
+    .container {
+      width: 85%;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+      border-radius: 12px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+      font-size: 15px;
+    }
+    table th, table td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    table th {
+      background: #2c3e50;
+      color: white;
+    }
+    .good {
+      background: #e8f8f2;
+      color: #27ae60;
+      font-weight: bold;
+    }
+    .bad {
+      background: #fdecea;
+      color: #c0392b;
+      font-weight: bold;
+    }
+    .note {
+      margin-top: 25px;
+      padding: 15px;
+      background: #fff9d6;
+      border-left: 5px solid #f1c40f;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>🌿 SmartBloom – Class Accuracy Analysis</h2>
+
+  <canvas id="accuracyChart" height="120"></canvas>
+
+  <!-- Accuracy Table -->
+  <table>
+    <tr>
+      <th>Class Name</th>
+      <th>Accuracy (%)</th>
+      <th>Status</th>
+    </tr>
+
+    <!-- BEST CLASSES -->
+    <tr>
+      <td>banana_bract_mosaic_virus</td>
+      <td>98.9%</td>
+      <td class="good">Excellent</td>
+    </tr>
+    <tr>
+      <td>banana_cordana</td>
+      <td>93.5%</td>
+      <td class="good">Excellent</td>
+    </tr>
+    <tr>
+      <td>banana_healthy</td>
+      <td>99.3%</td>
+      <td class="good">Excellent</td>
+    </tr>
+    <tr>
+      <td>radish_black_leaf_spot</td>
+      <td>99.5%</td>
+      <td class="good">Excellent</td>
+    </tr>
+    <tr>
+      <td>radish_flea_beetle</td>
+      <td>99.4%</td>
+      <td class="good">Excellent</td>
+    </tr>
+    <tr>
+      <td>radish_healthy</td>
+      <td>99.5%</td>
+      <td class="good">Excellent</td>
+    </tr>
+
+    <!-- WORST CLASSES -->
+    <tr>
+      <td>chilli_leafcurl</td>
+      <td>14.8%</td>
+      <td class="bad">Needs More Data</td>
+    </tr>
+    <tr>
+      <td>chilli_anthracnose</td>
+      <td>30.0%</td>
+      <td class="bad">Needs More Data</td>
+    </tr>
+    <tr>
+      <td>chilli_leafspot</td>
+      <td>36.5%</td>
+      <td class="bad">Needs More Data</td>
+    </tr>
+  </table>
+
+  <!-- Explanation -->
+  <div class="note">
+    <strong>📌 Why are the 3 worst classes scoring low?</strong><br><br>
+    ✔ These classes have **very small training datasets** (much fewer images than others).<br>
+    ✔ They also have **high visual similarity** to other chilli diseases, which makes detection harder.<br>
+    ✔ Adding **200–500 more images** per class will significantly boost accuracy.
+  </div>
+
+</div>
+
+<script>
+const ctx = document.getElementById('accuracyChart').getContext('2d');
+
+const bestLabels = [
+  "banana_bract_mosaic_virus",
+  "banana_cordana",
+  "banana_healthy",
+  "radish_black_leaf_spot",
+  "radish_flea_beetle",
+  "radish_healthy"
+];
+const bestAcc = [98.9, 93.5, 99.3, 99.5, 99.4, 99.5];
+
+const worstLabels = ["chilli_leafcurl", "chilli_anthracnose", "chilli_leafspot"];
+const worstAcc = [14.8, 30.0, 36.5];
+
+new Chart(ctx, {
+  type: "bar",
+  data: {
+    labels: [...bestLabels, ...worstLabels],
+    datasets: [{
+      label: "Accuracy (%)",
+      data: [...bestAcc, ...worstAcc],
+      backgroundColor: [
+        ...bestAcc.map(() => "rgba(46, 204, 113, 0.7)"),
+        ...worstAcc.map(() => "rgba(231, 76, 60, 0.7)")
+      ],
+      borderColor: [
+        ...bestAcc.map(() => "rgba(39, 174, 96, 1)"),
+        ...worstAcc.map(() => "rgba(192, 57, 43, 1)")
+      ],
+      borderWidth: 2
+    }]
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: 100,
+        ticks: { stepSize: 10 }
+      }
+    },
+    plugins: {
+      legend: { display: false }
+    }
+  }
+});
+</script>
+
+</body>
+</html>

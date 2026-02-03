@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartBloom 🌸 | AI Plant Health Detection</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Animated Background Blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <span class="logo-icon">🌸</span>
+        <span class="logo-text">SmartBloom</span>
+      </div>
+      <div class="nav-links">
+        <a href="#hero" class="nav-link">Home</a>
+        <a href="#demo" class="nav-link">Demo</a>
+        <a href="#how-it-works" class="nav-link">How It Works</a>
+        <a href="#metrics" class="nav-link">Metrics</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-badge fade-in-up">
+          <span class="badge-icon">✨</span>
+          <span>AI-Powered Plant Health</span>
+        </div>
+        <h1 class="hero-title fade-in-up">
+          Identify Flowers & Detect
+          <span class="gradient-text">Plant Diseases</span>
+          <span class="flower-emoji pulse">🌸</span>
+        </h1>
+        <p class="hero-description fade-in-up">
+          Two-stage AI system combining EfficientNet-B0 flower classification 
+          and YOLOv11 disease detection for comprehensive plant health analysis.
+        </p>
+        <div class="hero-cta fade-in-up">
+          <button class="btn-primary" onclick="document.getElementById('demo').scrollIntoView({behavior: 'smooth'})">
+            <span>Try Live Demo</span>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button class="btn-secondary" onclick="document.getElementById('how-it-works').scrollIntoView({behavior: 'smooth'})">
+            Learn More
+          </button>
+        </div>
+      </div>
+      <div class="hero-image-container fade-in-up">
+        <div class="hero-image-card">
+          <div class="scan-ripple"></div>
+          <div class="hero-image-placeholder">
+            <svg width="200" height="200" viewBox="0 0 200 200" fill="none">
+              <circle cx="100" cy="100" r="80" fill="url(#gradient)" opacity="0.3"/>
+              <path d="M100 40 L120 80 L160 80 L130 110 L140 150 L100 130 L60 150 L70 110 L40 80 L80 80 Z" fill="url(#gradient)"/>
+              <defs>
+                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:#ec4899;stop-opacity:1" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <div class="mouse"></div>
+    </div>
+  </section>
+
+  <!-- Metrics Section -->
+  <section class="metrics" id="metrics">
+    <div class="container">
+      <h2 class="section-title">Powered by Advanced AI</h2>
+      <div class="metrics-grid">
+        <div class="metric-card" data-value="89">
+          <div class="metric-icon">🎯</div>
+          <div class="metric-value">
+            <span class="counter" data-target="89">0</span><span>%</span>
+          </div>
+          <div class="metric-label">Accuracy</div>
+        </div>
+        <div class="metric-card" data-value="11">
+          <div class="metric-icon">🚀</div>
+          <div class="metric-value">
+            <span>YOLOv</span><span class="counter" data-target="11">0</span>
+          </div>
+          <div class="metric-label">Disease Detection</div>
+        </div>
+        <div class="metric-card" data-value="102">
+          <div class="metric-icon">🌺</div>
+          <div class="metric-value">
+            <span class="counter" data-target="102">0</span><span>+</span>
+          </div>
+          <div class="metric-label">Flower Species</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon">⚡</div>
+          <div class="metric-value">GPU-Ready</div>
+          <div class="metric-label">Fast Inference</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Demo Section -->
+  <section class="demo" id="demo">
+    <div class="container">
+      <h2 class="section-title">Live Demo</h2>
+      <p class="section-subtitle">Upload an image or use your camera to see AI in action</p>
+      
+      <!-- Tab Switcher -->
+      <div class="tab-container">
+        <button class="tab-btn active" data-tab="flower">
+          <span class="tab-icon">🌺</span>
+          <span>Flower Species</span>
+        </button>
+        <button class="tab-btn" data-tab="disease">
+          <span class="tab-icon">🍃</span>
+          <span>Leaf Disease</span>
+        </button>
+      </div>
+
+      <div class="demo-content">
+        <!-- Upload Card -->
+        <div class="demo-card glass-card">
+          <h3 class="card-title">
+            <span id="tab-icon">🌺</span>
+            <span id="tab-title">Flower Classification</span>
+          </h3>
+          
+          <div class="upload-zone" id="uploadZone">
+            <input type="file" id="fileInput" accept="image/*" />
+            <div class="upload-content">
+              <svg class="upload-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              <p class="upload-text">Click to upload or drag & drop</p>
+              <p class="upload-hint">Supports JPG, PNG, WebP</p>
+            </div>
+          </div>
+
+          <!-- Camera Section -->
+          <div class="camera-section">
+            <div class="camera-container">
+              <video id="video" autoplay playsinline></video>
+              <div class="camera-overlay">
+                <div class="camera-frame"></div>
+              </div>
+            </div>
+            <button id="captureBtn" class="btn-camera">
+              <span class="camera-icon">📷</span>
+              <span>Capture & Analyze</span>
+            </button>
+            <canvas id="canvas" style="display:none;"></canvas>
+          </div>
+
+          <button id="analyzeBtn" class="btn-analyze" disabled>
+            <span class="analyze-icon">🔍</span>
+            <span>Analyze Image</span>
+          </button>
+        </div>
+
+        <!-- Results Card -->
+        <div class="demo-card glass-card results-card" id="resultsCard">
+          <h3 class="card-title">Results</h3>
+          <div id="previewContainer" class="preview-container">
+            <img id="previewImage" alt="Preview" />
+            <div id="diseaseOverlay" class="disease-overlay"></div>
+          </div>
+          <div id="output" class="output-container">
+            <div class="output-placeholder">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <p>Upload an image to see results</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-subtitle">Two-stage AI pipeline for comprehensive plant analysis</p>
+      
+      <div class="steps-container">
+        <div class="step-line"></div>
+        <div class="step-card" data-step="1">
+          <div class="step-number">1</div>
+          <div class="step-icon">📸</div>
+          <h3 class="step-title">Upload Image</h3>
+          <p class="step-description">Upload a photo of a flower or plant leaf using the interface or your device camera.</p>
+        </div>
+        <div class="step-card" data-step="2">
+          <div class="step-number">2</div>
+          <div class="step-icon">🧠</div>
+          <h3 class="step-title">AI Processing</h3>
+          <p class="step-description">EfficientNet-B0 classifies flower species, while YOLOv11 detects and localizes leaf diseases.</p>
+        </div>
+        <div class="step-card" data-step="3">
+          <div class="step-number">3</div>
+          <div class="step-icon">📊</div>
+          <h3 class="step-title">Get Results</h3>
+          <p class="step-description">Receive detailed predictions with confidence scores and bounding boxes for detected diseases.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="footer-logo">🌸 SmartBloom</span>
+          <p>AI-powered plant health detection system</p>
+        </div>
+        <div class="footer-links">
+          <a href="#hero">Home</a>
+          <a href="#demo">Demo</a>
+          <a href="#how-it-works">How It Works</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 SmartBloom. Built with AI & ❤️</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner">
+      <div class="spinner-ring"></div>
+      <div class="spinner-ring"></div>
+      <div class="spinner-ring"></div>
+    </div>
+    <p class="loading-text">Analyzing image...</p>
+  </div>
+
+  <!-- SmartBloom Rocket Assistant -->
+  <div class="rocket-assistant-container" id="rocketAssistantContainer">
+    <!-- Rocket Phase -->
+    <div class="rocket-wrapper" id="rocketWrapper">
+      <div class="rocket" id="rocket">
+        <!-- Leaf-shaped Rocket SVG -->
+        <svg width="60" height="60" viewBox="0 0 60 60" class="rocket-svg">
+          <defs>
+            <linearGradient id="rocketGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#ec4899;stop-opacity:1" />
+            </linearGradient>
+            <filter id="motionBlur">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="2"/>
+            </filter>
+          </defs>
+          <!-- Leaf/Rocket shape -->
+          <path d="M30 5 L45 20 L40 30 L30 25 L20 30 L15 20 Z" 
+                fill="url(#rocketGradient)" 
+                filter="url(#motionBlur)"
+                class="rocket-body"/>
+          <!-- Rocket tip -->
+          <circle cx="30" cy="5" r="3" fill="#ec4899" class="rocket-tip"/>
+        </svg>
+        <!-- Particle Trail -->
+        <div class="particle-trail" id="particleTrail"></div>
+        <!-- Glowing Tail -->
+        <div class="rocket-tail"></div>
+      </div>
+    </div>
+    
+    <!-- Chat Phase (after transformation) -->
+    <div class="assistant-card" id="assistantCard">
+      <div class="assistant-header">
+        <div class="assistant-title">
+          <span class="assistant-icon">🍃</span>
+          <span>SmartBloom Assistant</span>
+        </div>
+        <button class="assistant-close" id="assistantClose" aria-label="Close assistant">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 5L5 15M5 5l10 10"/>
+          </svg>
+        </button>
+      </div>
+      <div class="assistant-content">
+        <div class="assistant-message" id="assistantMessage">
+          <div class="typing-indicator">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

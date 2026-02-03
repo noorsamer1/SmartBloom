@@ -1,0 +1,18 @@
+﻿# ✅ SmartBloom Requirements
+
+# 🔥 Deep Learning Framework (install torch manually before this file)
+# torch==2.4.1+cu121   # installed separately
+# torchvision==0.19.1+cu121  # installed separately
+
+tqdm
+hydra-core
+ultralytics
+matplotlib
+rich
+kaggle
+tensorflow
+tensorflow-datasets
+fastapi
+
+
+

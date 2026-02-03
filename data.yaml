@@ -1,0 +1,14 @@
+train: /kaggle/input/smartbloom/plant_disease_detection/train
+val: /kaggle/input/smartbloom/plant_disease_detection/val
+test: /kaggle/input/smartbloom/plant_disease_detection/test
+nc: 39 # number of classes
+names: ['Algal_Leaf_Spot', 'Boron-Deficiency',
+ 'Calcium-deficiency', 'Copper', 'Copper-deficiency',
+  'Early Blight', 'Healthy', 'Healthy_Leaf', 'Iron', 
+  'Iron-deficiency', 'Late Blight', 'Leaf Miner', 'Leaf Mold',
+   'Leaf_Blight', 'Magnesium', 'Manganese', 'Molybdenum', 'Mosaic Virus',
+    'Nitrogen-deficiency', 'Phomopsis_Leat_sp-', 'Phosphorus-deficiency',
+     'Potassium', 'Potassium-Deficiency', 'Septoria', 'Spider Mites', 'Sulphur',
+      'Yellow Leaf Curl Virus', 'Zinc', 'anthracnose_disease', 'black_spot',
+       'botrytis_blight', 'cercospora_spot', 'downy_mildew', 'gray_mold', 'leaf_curl',
+        'mycosphaerella_leaf_blotch', 'powdery_mildew', 'rust', 'septoria_spot']

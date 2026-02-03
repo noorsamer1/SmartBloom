@@ -1,0 +1,14 @@
+﻿data: data/plant_disease_detection/data.yaml
+model: yolo11s.pt       # 👈 change here (yolov8s.pt / yolov9-c.pt / yolov10n.pt / yolov12n.pt)       # 👈 change here (yolov8s.pt / yolov9-c.pt / yolov10n.pt / yolov12n.pt)
+epochs: 100
+imgsz: 640
+batch: 8
+device: 0
+workers: 0
+lr: .001
+cos_lr: True      # cosine learning rate scheduler
+mixup: 0.2        # helps generalization
+mosaic: 0.7       # strong augmentation
+optimizer: SGD
+momentum: 0.9
+save_dir: artifacts/disease_detector
