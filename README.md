@@ -10,7 +10,7 @@ SmartBloom is an intelligent computer vision system that helps users identify pl
 
 After the YOLO model detects a plant disease, the assistant plays a short animation, then **streams the plant disease diagnosis and step-by-step recommendations** to fix it.
 
-*To add the demo video: on GitHub, click **Edit this file** on this README, then drag and drop your `Recording 2026-02-03 184759.mp4` into the editor. GitHub will upload it and insert a playable video link here.*
+https://github.com/user-attachments/assets/0a5df634-5b3d-4509-a26f-e66b91f82b91
 
 ## Features
 
@@ -18,6 +18,9 @@ After the YOLO model detects a plant disease, the assistant plays a short animat
 - **Plant disease detection** — YOLO-based detector (YOLOv8 / YOLO11, etc.) for leaf diseases via Ultralytics.
 - **FastAPI backend** — `POST /predict_flower` and `POST /predict_disease` for image inference.
 - **React frontend** — Landing page, live demo, and webcam/upload UI (Vite + Tailwind).
+
+
+
 
 ## Tech stack
 
